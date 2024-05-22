@@ -15,8 +15,6 @@ This repository contains the code supporting the DistilBERT target model for use
 
 DistilBERT is a languae model architecture commonly used in training sentence classification models. You can use `autodistill` to train a DistilBERT model that classifies text.
 
-Read the [YOLOv5 Autodistill documentation](https://autodistill.github.io/autodistill/target_models/yolov5/).
-
 ## Installation
 
 To use the DistilBERT target model, you will need to install the following dependency:
