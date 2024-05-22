@@ -22,7 +22,7 @@ class DistilBERT(TextClassificationTargetModel):
 
         return result
 
-    def train(self, dataset_file, output_dir="output", epochs=5):
+    def train(self, dataset_file, output_dir="output", epochs=2):
         accuracy = evaluate.load("accuracy")
 
         tokenizer = AutoTokenizer.from_pretrained("distilbert/distilbert-base-uncased")
@@ -43,7 +43,7 @@ class DistilBERT(TextClassificationTargetModel):
         tokenized_dataset = dataset.map(preprocess_function, batched=True)
 
         # assign ids to each unique label
-        labels = tokenized_dataset["train"]["classification"].unique()
+        labels = list(set(tokenized_dataset["train"]["classification"]))
         # order alphabetically
         labels = sorted(labels)
 
