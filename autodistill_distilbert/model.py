@@ -41,11 +41,13 @@ class DistilBERT(TextClassificationTargetModel):
         dataset = dataset.rename_column("content", "text")
         dataset = dataset.train_test_split(test_size=0.2)
         tokenized_dataset = dataset.map(preprocess_function, batched=True)
+        # drop null labels
+        tokenized_dataset = tokenized_dataset.filter(lambda example: example["classification"] is not None)
 
         # assign ids to each unique label
         labels = list(set(tokenized_dataset["train"]["classification"]))
         # order alphabetically
-        labels = sorted(labels)
+        labels = sorted([i for i in labels if i is not None])
 
         id2label = {i: label for i, label in enumerate(labels)}
         label2id = {v: k for k, v in id2label.items()}
